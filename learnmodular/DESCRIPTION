@@ -1,12 +1,8 @@
 Package: learnmodular
-Title: An Amazing Shiny App
+Title: PKG_TITLE
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "firstname",
-           family = "lastname",
-           role = c("aut", "cre"),
-           email = "your@email.com")
-Description: What the package does (one paragraph).
+Authors@R: person('Lukasz', 'A', email = 'lukasz.coding@GMAIL.COM', role = c('cre', 'aut'))
+Description: PKG_DESC.
 License: What license is it under?
 Imports: 
     config (>= 0.3.2),
