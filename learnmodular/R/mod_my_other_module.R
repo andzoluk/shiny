@@ -12,9 +12,6 @@ mod_my_other_module_ui <- function(id){
   tagList(
     DT::dataTableOutput(ns("table1")),
     plotOutput(ns("plot1"))
-#
-#     h2("second module"),
-#     plotOutput(ns("plot"))
   )
 }
 
@@ -29,10 +26,6 @@ mod_my_other_module_server <- function(id){
     output$plot1<- shiny::renderPlot(
       ggplot2::ggplot(mtcars, ggplot2::aes(x=wt,y=mpg)) + ggplot2::geom_point()
     )
-
-    # output$plot <- renderPlot({
-    #   plot(airquality)
-    # })
   })
 }
 
