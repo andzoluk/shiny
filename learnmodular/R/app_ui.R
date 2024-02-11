@@ -12,7 +12,9 @@ app_ui <- function(request) {
     fluidPage(
       h1("learnmodular"),
       mod_first_module_ui("first_module_1"),
-      mod_my_other_module_ui("my_other_module_1")
+      mod_my_other_module_ui("my_other_module_1"),
+      actionButton("browser", "browser"),
+      tags$script("$('#browser').hide();")
     )
   )
 }
