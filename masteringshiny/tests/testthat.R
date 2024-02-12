@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(mastering)
+library(masteringshiny)
 
-test_check("mastering")
+test_check("masteringshiny")

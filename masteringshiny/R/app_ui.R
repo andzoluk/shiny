@@ -8,11 +8,11 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-
-    fluidPage(
-      h1("mastering")
+    # Your application UI logic
+    shiny::fluidPage(
+      #h1("masteringshiny"),
+      mod_first_ui("first_1")
     )
-    ,mod_first_ui("first_1")
   )
 }
 
@@ -34,7 +34,7 @@ golem_add_external_resources <- function() {
     favicon(),
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "mastering"
+      app_title = "masteringshiny"
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()

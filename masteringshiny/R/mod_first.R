@@ -4,33 +4,42 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd
+#' @noRd 
 #'
-#' @importFrom shiny NS tagList
+#' @importFrom shiny NS tagList 
 mod_first_ui <- function(id){
   ns <- NS(id)
   tagList(
     shiny::fluidPage(
-      shiny::selectInput(inputId = "dataset", label = "data set", choices=unique(mtcars$cyl))),
-      verbatimTextOutput("summary"),
-      tableOutput(ns("table"))
+      shiny::selectInput("data", label= "select", choices = unique(mtcars$cyl)),
+      verbatimTextOutput(ns("summary")),
+      DT::dataTableOutput(ns("table"))
+    )
   )
 }
 
 #' first Server Functions
 #'
-#' @noRd
+#' @noRd 
 mod_first_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-
-    function(input,output, session){}
-
+    
+    df<-reactive({mtcars})
+    
+    output$table <- DT::renderDataTable({
+      df()
+    })
+    
+    output$summary <- shiny::renderPrint({
+      summary(df())
+    })
+    
   })
 }
-
+    
 ## To be copied in the UI
 # mod_first_ui("first_1")
-
+    
 ## To be copied in the server
 # mod_first_server("first_1")

@@ -46,7 +46,7 @@ usethis::use_test("app")
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("mastering")
+usethis::use_vignette("masteringshiny")
 devtools::build_vignettes()
 
 ## Code Coverage----
