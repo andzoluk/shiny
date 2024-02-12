@@ -26,17 +26,16 @@ mod_first_module_ui <- function(id){
           shinydashboard::tabItem(tabName = "plots2",
                                   shiny::plotOutput(ns("plot1"))
           ),
-          shinydashboard::tabItem(tabName = "data2",
+          shinydashboard::tabItem(#tabName = "data2",
                                   DT::DTOutput(ns("data1")))
         )
       )
     )
 
-    # h2("cos tam cos"),
-    # plotOutput(ns("plot"))
-
   )
 }
+
+
 
 #' first_module Server Functions
 #'
@@ -51,7 +50,18 @@ mod_first_module_server <- function(id){
       return(data)
     })
 
-    output$data1<- DT::renderDT(DT::datatable(dataFiltered()))
+    #output$data1<- DT::renderDT(DT::datatable(dataFiltered()))
+
+    output$data1<-DT::renderDT(
+      # DT::datatable(mtcars)
+      {      datatable <- mtcars
+      datatable[datatable > 3] <- "<span style='color:red'>&#9679;</span>"
+      datatable[datatable <= 3 & datatable != "<span style='color:red'>&#9679;</span>"] <- "<span style='color:green'>&#9679;</span>"
+
+      DT::datatable(datatable, escape = FALSE)}
+    )
+
+
     output$plot1<-renderPlot({
       ggplot2::ggplot(data=dataFiltered(),ggplot2::aes(x=mpg,y=hp)) + ggplot2::geom_point()
     })

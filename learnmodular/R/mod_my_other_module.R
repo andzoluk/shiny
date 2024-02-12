@@ -22,7 +22,15 @@ mod_my_other_module_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-    output$table1<-DT::renderDT(DT::datatable(mtcars) )
+    output$table1<-DT::renderDT(
+      # DT::datatable(mtcars)
+      {      datatable <- mtcars
+      datatable[datatable > 3] <- "<span style='color:red'>&#9679;</span>"
+      datatable[datatable <= 3 & datatable != "<span style='color:red'>&#9679;</span>"] <- "<span style='color:green'>&#9679;</span>"
+
+      DT::datatable(datatable, escape = FALSE)}
+      )
+
     output$plot1<- shiny::renderPlot(
       ggplot2::ggplot(mtcars, ggplot2::aes(x=wt,y=mpg)) + ggplot2::geom_point()
     )
