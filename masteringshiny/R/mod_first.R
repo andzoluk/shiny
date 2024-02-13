@@ -13,7 +13,9 @@ mod_first_ui <- function(id){
     shiny::fluidPage(
       shiny::selectInput("data", label= "select", choices = unique(mtcars$cyl)),
       verbatimTextOutput(ns("summary")),
-      DT::dataTableOutput(ns("table"))
+      DT::dataTableOutput(ns("table")),
+      textOutput(ns("greetings")),
+      textInput(ns("name"), "What is your name?")
     )
   )
 }
@@ -27,6 +29,10 @@ mod_first_server <- function(id){
     
     df<-reactive({mtcars})
     
+    output$greetings <- renderText({
+      paste0("hello ", input$name)
+    })
+    
     output$table <- DT::renderDataTable({
       df()
     })
@@ -34,6 +40,8 @@ mod_first_server <- function(id){
     output$summary <- shiny::renderPrint({
       summary(df())
     })
+    
+   
     
   })
 }
