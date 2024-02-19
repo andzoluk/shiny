@@ -1,25 +1,39 @@
-#page 11, ex 1
+library(shiny)
+library(DT)
 
-ui<- fluidPage(
-  
-  sliderInput("one", label="if x is", min=1, max=50, value=30),
-  sliderInput("two", label = "and y is", min=1, max=50, value=5),
-  textOutput("txt"),
-  textOutput("txt2")
-  
+# Shiny app UI
+ui <- fluidPage(
+  dataTableOutput("mtcars_table"),
+  uiOutput("modal")
 )
 
-server<- function(input,output){
-  
-  output$txt <- renderText({
-    paste0("then x times 5 is ", input$one * 5)
+# Shiny app server
+server <- function(input, output, session) {
+  # Render the mtcars table
+  output$mtcars_table <- renderDataTable({
+    datatable(
+      mtcars,
+      selection = 'none',
+      rownames = FALSE,
+      options = list(
+        pageLength = 10
+      )
+    )
   })
-  output$txt2 <- renderText({
-    paste0("then, x times y is ", input$two*input$one)
+  
+  # Create modal dialog
+  output$modal <- renderUI({
+    modalDialog(
+      title = "Information",
+      "Here is information"
+    )
   })
   
+  # Show modal when row is clicked
+  observeEvent(input$mtcars_table_rows_selected, {
+    showModal(uiOutput("modal"))
+  })
 }
 
-
-shinyApp(ui,server)
-
+# Run the Shiny app
+shinyApp(ui, server)
