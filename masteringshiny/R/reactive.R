@@ -1,4 +1,5 @@
 library(dplyr)
+library(shiny)
 
 data = data.frame(Year=c("2002","2003","2004","2003","2001","2002", "2001"),
 									Month = c("Jan", "Feb", "Mar", "Jan", "Dec", "Jan", "Nov"),
@@ -30,6 +31,7 @@ server <- function(input,output,session){
 
 
 
+
 	month_reactive<- reactive({
 		req(input$month)
 		dplyr::filter(dat_reactive(), Month == input$month)
@@ -51,20 +53,6 @@ server <- function(input,output,session){
 	})
 }
 
-# server <- function(input,output,session){
-#
-# 	observeEvent(input$year,
-# 							 {
-# 							 	updateSelectInput(session, inputId = "month","month", choices = unique(data$Month[data$Year==input$year]))
-# 							 })
-#
-# 	observeEvent(input$month,
-# 							 {
-# 							 	updateSelectInput(session, inputId = "name", "name", choices = unique(data$Name[data$Year==input$year & data$Month==input$month]))
-# 							 })
-#
-# 	output$table <- renderTable(data)
-# }
 
 shinyApp(ui,server)
 
