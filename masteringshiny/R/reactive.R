@@ -9,11 +9,14 @@ data = data.frame(Year=c("2002","2003","2004","2003","2001","2002", "2001"),
 
 
 ui<- fluidPage(
+	fluidRow(column(width=2, selectInput("year","Year",choices = unique(data$Year))),
+					 column(width=2,selectInput("month","month",choices = NA)),
+					 column(width=2,selectInput("name","name",choices = NA)),
+					 column(width=6, tableOutput("table")))
 
-	selectInput("year","Year",choices = unique(data$Year)),
-	selectInput("month","month",choices = NA),
-	selectInput("name","name",choices = NA),
-	tableOutput("table")
+
+
+
 
 )
 
